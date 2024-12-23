@@ -39,7 +39,7 @@ public class Plugin : BasePlugin
         if (m_bPatchedUIText)
             return;
 
-        UIText_OnEnable = AccessTools.Method(typeof(Localization_UIText), "OnEnable");
+        UIText_OnEnable = AccessTools.Method(typeof(UnityEngine.UI.Text), "OnEnable");
         harmony.PatchAll(typeof(UITextPatch));
         m_bPatchedUIText = true;
     }

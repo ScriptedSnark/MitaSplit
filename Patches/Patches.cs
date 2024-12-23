@@ -11,16 +11,13 @@ using UnityEngine.SceneManagement;
 namespace MitaSplit.Patches
 {
     // TODO: fix potential crashes here (REMOVE UNPATCH/PATCH METHODS FOR UITEXT)
-    [HarmonyPatch(typeof(Localization_UIText))]
+    [HarmonyPatch(typeof(UnityEngine.UI.Text))]
     [HarmonyPatch("OnEnable")]
     public class UITextPatch
     {
-        static void Postfix(Localization_UIText __instance)
+        static void Postfix(UnityEngine.UI.Text __instance)
         {
-            if (__instance.NameFile == String.Empty)
-                return;
-
-            if (__instance.NameFile == "Location 1" && __instance.StringNumber == 28) // Find TextPresent
+            if (__instance.text.Equals("AIHASTO", StringComparison.Ordinal))
             {
                 Interprocess.WriteTimerReset();
                 Interprocess.WriteTimerStart();
@@ -40,6 +37,7 @@ namespace MitaSplit.Patches
                 Plugin.Log.LogInfo($"GameObject '{__instance.name}' has been activated.");
                 Interprocess.WriteGameEnd();
             }
+
         }
     }
 

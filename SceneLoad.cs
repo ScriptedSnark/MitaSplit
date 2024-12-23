@@ -22,12 +22,12 @@ namespace MitaSplit
             m_bSwitchedScene = true;
             m_sSceneName = next.name;
 
-            if (next.name == "Scene 9 - ChibiMita") // SPECIFIC LOGIC
+            if (next.name.Equals("Scene 9 - ChibiMita", StringComparison.Ordinal))
             {
                 Interprocess.WriteMapChange(next.name);
             }
 
-            if (next.name == "Scene 1 - RealRoom") // SPECIFIC LOGIC
+            if (next.name.Equals("Scene 1 - RealRoom", StringComparison.Ordinal)) // SPECIFIC LOGIC
             {
                 Plugin.PatchUIText();
             }
