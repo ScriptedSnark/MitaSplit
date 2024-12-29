@@ -76,6 +76,11 @@ namespace MitaSplit
             WriteEvent(MessageType.Event, EventType.TimerStart);
         }
 
+        public static void WriteILTimerStart()
+        {
+            WriteEvent(MessageType.Event, EventType.ILTimerStart);
+        }
+
         private static void WriteEvent(MessageType messageType, EventType eventType)
         {
             using (var ms = new MemoryStream())
@@ -119,6 +124,7 @@ namespace MitaSplit
         GameEnd = 1,
         MapChange = 2,
         TimerReset = 3,
-        TimerStart = 4
+        TimerStart = 4,
+        ILTimerStart = 5
     }
 }

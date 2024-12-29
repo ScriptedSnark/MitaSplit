@@ -8,6 +8,7 @@ namespace MitaSplit
     public class SceneLoad
     {
         public static bool m_bSwitchedScene = false;
+        public static String m_sOldSceneName = null;
         public static String m_sSceneName = null;
         public static List<GameObject> m_rootGameObjects = null;
 
@@ -20,7 +21,16 @@ namespace MitaSplit
         private static void OnSceneLoaded(Scene current, Scene next)
         {
             m_bSwitchedScene = true;
+            m_sOldSceneName = m_sSceneName;
             m_sSceneName = next.name;
+
+            if (m_sOldSceneName == null)
+                return;
+
+            if (m_sOldSceneName.Equals("SceneLoading", StringComparison.Ordinal) && !next.name.Equals("SceneMenu", StringComparison.Ordinal))
+            {
+                Interprocess.WriteILTimerStart();
+            }
 
             if (next.name.Equals("Scene 9 - ChibiMita", StringComparison.Ordinal))
             {
@@ -35,8 +45,6 @@ namespace MitaSplit
             {
                 Plugin.UnpatchUIText();
             }
-
-            //Plugin.Log.LogInfo($"{next.name}");
         }
     }
 }

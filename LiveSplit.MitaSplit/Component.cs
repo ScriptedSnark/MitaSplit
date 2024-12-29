@@ -28,7 +28,8 @@ namespace LiveSplit.MitaSplit
             GameEnd = 1,
             MapChange = 2,
             TimerReset = 3,
-            TimerStart = 4
+            TimerStart = 4,
+            ILTimerStart = 5
         }
 
         private interface IEvent
@@ -53,6 +54,11 @@ namespace LiveSplit.MitaSplit
             public TimeSpan Time { get; set; }
         }
 
+        private struct ILTimerStartEvent : IEvent
+        {
+            public TimeSpan Time { get; set; }
+        }
+
         private ComponentSettings settings = new ComponentSettings();
         private NamedPipeClientStream pipe = new NamedPipeClientStream(
           ".",
@@ -71,6 +77,8 @@ namespace LiveSplit.MitaSplit
         private HashSet<string> visitedMaps = new HashSet<string>();
 
         private DateTime lastTime = DateTime.Now;
+
+        private bool m_bFirstEnd = false;
 
         public Component(LiveSplitState state)
         {
@@ -113,9 +121,15 @@ namespace LiveSplit.MitaSplit
                 {
                     if (ev is GameEndEvent)
                     {
-                        if (state.CurrentPhase == TimerPhase.Running && settings.ShouldSplitOnGameEnd())
+                        if (state.CurrentPhase == TimerPhase.Running)
                         {
-                            model.Split();
+                            if (settings.ShouldSplitOnGameEnd())
+                            {
+                                if (!settings.ShouldSplitOnSecondGameEndTrigger() || (m_bFirstEnd && settings.ShouldSplitOnSecondGameEndTrigger()))
+                                    model.Split();
+                            }
+
+                            m_bFirstEnd = true;
                         }
                     }
                     else if (ev is MapChangeEvent)
@@ -136,6 +150,14 @@ namespace LiveSplit.MitaSplit
                     else if (ev is TimerStartEvent)
                     {
                         if (settings.IsAutoStartEnabled())
+                        {
+                            state.SetGameTime(ev.Time);
+                            start = true;
+                        }
+                    }
+                    else if (ev is ILTimerStartEvent)
+                    {
+                        if (settings.IsILAutoStartEnabled())
                         {
                             state.SetGameTime(ev.Time);
                             start = true;
@@ -222,6 +244,17 @@ namespace LiveSplit.MitaSplit
                             case (byte)EventType.TimerStart:
                                 {
                                     var ev = new TimerStartEvent() {  };
+                                    lock (eventsLock)
+                                    {
+                                        events.Add(ev);
+                                    }
+                                    //Debug.WriteLine("Received a timer start event: {0}:{1}:{2}.{3}.", time.Hours, time.Minutes, time.Seconds, time.Milliseconds);
+                                }
+                                break;
+
+                            case (byte)EventType.ILTimerStart:
+                                {
+                                    var ev = new ILTimerStartEvent() { };
                                     lock (eventsLock)
                                     {
                                         events.Add(ev);

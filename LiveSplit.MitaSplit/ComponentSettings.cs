@@ -20,8 +20,7 @@ namespace LiveSplit.MitaSplit
 
         private void SetDefaultSettings()
         {
-            EnableAutoSplitCheckbox.Checked = false;
-
+            EnableAutoSplitCheckbox.Checked = true;
             EnableAutoResetCheckbox.Checked = true;
             EnableAutoStartCheckbox.Checked = true;
         }
@@ -93,6 +92,11 @@ namespace LiveSplit.MitaSplit
             return IsAutoSplitEnabled();
         }
 
+        public bool ShouldSplitOnSecondGameEndTrigger()
+        {
+            return GameEndSecondTriggerCheckBox.Checked;
+        }
+
         public bool IsAutoSplitEnabled()
         {
             return EnableAutoSplitCheckbox.Checked;
@@ -106,6 +110,11 @@ namespace LiveSplit.MitaSplit
         public bool IsAutoStartEnabled()
         {
             return EnableAutoStartCheckbox.Checked;
+        }
+
+        public bool IsILAutoStartEnabled()
+        {
+            return ILAutoStartCheckbox.Checked;
         }
 
         private void SetAutoSplitCheckboxColors()

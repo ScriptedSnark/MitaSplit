@@ -33,6 +33,9 @@ namespace LiveSplit.MitaSplit
         {
             this.EnableAutoSplitCheckbox = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.InfoLabel = new System.Windows.Forms.Label();
+            this.GameEndSecondTriggerCheckBox = new System.Windows.Forms.CheckBox();
+            this.ILAutoStartCheckbox = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.EnableAutoResetCheckbox = new System.Windows.Forms.CheckBox();
@@ -56,13 +59,46 @@ namespace LiveSplit.MitaSplit
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.InfoLabel);
+            this.groupBox1.Controls.Add(this.GameEndSecondTriggerCheckBox);
             this.groupBox1.Controls.Add(this.EnableAutoSplitCheckbox);
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(209, 335);
+            this.groupBox1.Size = new System.Drawing.Size(226, 335);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "AutoSplit";
+            // 
+            // InfoLabel
+            // 
+            this.InfoLabel.AutoSize = true;
+            this.InfoLabel.BackColor = System.Drawing.SystemColors.Control;
+            this.InfoLabel.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.InfoLabel.Location = new System.Drawing.Point(4, 296);
+            this.InfoLabel.Name = "InfoLabel";
+            this.InfoLabel.Size = new System.Drawing.Size(185, 13);
+            this.InfoLabel.TabIndex = 8;
+            this.InfoLabel.Text = "NORMAL GAME ENDING RELATED";
+            // 
+            // GameEndSecondTriggerCheckBox
+            // 
+            this.GameEndSecondTriggerCheckBox.AutoSize = true;
+            this.GameEndSecondTriggerCheckBox.Location = new System.Drawing.Point(6, 312);
+            this.GameEndSecondTriggerCheckBox.Name = "GameEndSecondTriggerCheckBox";
+            this.GameEndSecondTriggerCheckBox.Size = new System.Drawing.Size(180, 17);
+            this.GameEndSecondTriggerCheckBox.TabIndex = 7;
+            this.GameEndSecondTriggerCheckBox.Text = "End run on 2nd trigger activation";
+            this.GameEndSecondTriggerCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // ILAutoStartCheckbox
+            // 
+            this.ILAutoStartCheckbox.AutoSize = true;
+            this.ILAutoStartCheckbox.Location = new System.Drawing.Point(7, 42);
+            this.ILAutoStartCheckbox.Name = "ILAutoStartCheckbox";
+            this.ILAutoStartCheckbox.Size = new System.Drawing.Size(115, 17);
+            this.ILAutoStartCheckbox.TabIndex = 8;
+            this.ILAutoStartCheckbox.Text = "AutoStart for levels";
+            this.ILAutoStartCheckbox.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel1
             // 
@@ -80,6 +116,7 @@ namespace LiveSplit.MitaSplit
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.ILAutoStartCheckbox);
             this.groupBox2.Controls.Add(this.EnableAutoResetCheckbox);
             this.groupBox2.Controls.Add(this.EnableAutoStartCheckbox);
             this.groupBox2.Location = new System.Drawing.Point(3, 344);
@@ -94,11 +131,11 @@ namespace LiveSplit.MitaSplit
             this.EnableAutoResetCheckbox.AutoSize = true;
             this.EnableAutoResetCheckbox.Checked = true;
             this.EnableAutoResetCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.EnableAutoResetCheckbox.Location = new System.Drawing.Point(7, 43);
+            this.EnableAutoResetCheckbox.Location = new System.Drawing.Point(127, 19);
             this.EnableAutoResetCheckbox.Name = "EnableAutoResetCheckbox";
-            this.EnableAutoResetCheckbox.Size = new System.Drawing.Size(112, 17);
+            this.EnableAutoResetCheckbox.Size = new System.Drawing.Size(76, 17);
             this.EnableAutoResetCheckbox.TabIndex = 1;
-            this.EnableAutoResetCheckbox.Text = "Enable AutoReset";
+            this.EnableAutoResetCheckbox.Text = "AutoReset";
             this.EnableAutoResetCheckbox.UseVisualStyleBackColor = true;
             // 
             // EnableAutoStartCheckbox
@@ -108,9 +145,9 @@ namespace LiveSplit.MitaSplit
             this.EnableAutoStartCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.EnableAutoStartCheckbox.Location = new System.Drawing.Point(7, 20);
             this.EnableAutoStartCheckbox.Name = "EnableAutoStartCheckbox";
-            this.EnableAutoStartCheckbox.Size = new System.Drawing.Size(106, 17);
+            this.EnableAutoStartCheckbox.Size = new System.Drawing.Size(70, 17);
             this.EnableAutoStartCheckbox.TabIndex = 0;
-            this.EnableAutoStartCheckbox.Text = "Enable AutoStart";
+            this.EnableAutoStartCheckbox.Text = "AutoStart";
             this.EnableAutoStartCheckbox.UseVisualStyleBackColor = true;
             // 
             // ComponentSettings
@@ -136,5 +173,8 @@ namespace LiveSplit.MitaSplit
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.CheckBox EnableAutoResetCheckbox;
         private System.Windows.Forms.CheckBox EnableAutoStartCheckbox;
+        private CheckBox ILAutoStartCheckbox;
+        private CheckBox GameEndSecondTriggerCheckBox;
+        private Label InfoLabel;
     }
 }
