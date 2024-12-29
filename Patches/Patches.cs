@@ -32,12 +32,14 @@ namespace MitaSplit.Patches
     {
         static void Postfix(GameObject __instance, bool value)
         {
-            if (value && __instance.name == "CutSceneEnding")
-            {
-                Plugin.Log.LogInfo($"GameObject '{__instance.name}' has been activated.");
-                Interprocess.WriteGameEnd();
-            }
+            if (!value)
+                return;
 
+            // "CutSceneEnding" - Full Game Ending
+            // "Interface Finish" - Stay Ending
+            // "Catridge" - Suicide Ending
+            if (__instance.name.Equals("CutSceneEnding", StringComparison.Ordinal) || __instance.name.Equals("Interface Finish", StringComparison.Ordinal) || (__instance.name.Equals("Catridge", StringComparison.Ordinal) && SceneLoad.m_sSceneName.Equals("Scene 6 - BasementFirst", StringComparison.Ordinal)))
+                Interprocess.WriteGameEnd();
         }
     }
 
